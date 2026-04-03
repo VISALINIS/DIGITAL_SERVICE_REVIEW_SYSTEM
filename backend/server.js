@@ -2,7 +2,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-
 const path = require("path");
 
 // Import routes
@@ -27,11 +26,13 @@ app.use("/api/platforms", platformRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/admin", adminRoutes);
 
-// ✅ FRONTEND SERVING (ONLY ONCE)
-app.use(express.static(path.join(__dirname, "build")));
+// ✅ FRONTEND SERVING (FINAL FIX)
+const buildPath = path.resolve(__dirname, "build");
+
+app.use(express.static(buildPath));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "build", "index.html"));
+  res.sendFile(path.resolve(buildPath, "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;
