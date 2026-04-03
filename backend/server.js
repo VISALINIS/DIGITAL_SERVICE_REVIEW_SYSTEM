@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 
+const path = require("path");
+
 // Import routes
 const authRoutes = require("./routes/auth.routes");
 const platformRoutes = require("./routes/platform.routes");
@@ -19,17 +21,13 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
-  
-
-// Routes
+// API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/platforms", platformRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/admin", adminRoutes);
 
-//frontendconnection
-const path = require("path");
-
+// ✅ FRONTEND SERVING (ONLY ONCE)
 app.use(express.static(path.join(__dirname, "build")));
 
 app.get("*", (req, res) => {
@@ -41,4 +39,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
