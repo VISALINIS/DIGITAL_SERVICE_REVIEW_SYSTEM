@@ -10,6 +10,9 @@ const PlatformCard = ({ platform, onClick }) => {
           {platform.type}
         </span>
       </div>
+      <p className="description">
+        {platform.description}
+      </p>
       <p className="category">
         <strong>Category:</strong> {platform.category}
       </p>

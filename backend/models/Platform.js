@@ -14,24 +14,21 @@ const platformSchema = new mongoose.Schema(
     category: {
       type: String,
       enum: [
-        "Programming",
-        "Competitive Exams",
-        "School Learning",
-        "College Resources",
-        "Skill Development",
-        "Language Learning",
+        "Education",
+        "Entertainment",
+        "Finance",
+        "E-commerce",
+        "Social Media",
+        "Productivity",
+        "Health & Fitness",
+        "Travel",
       ],
       required: true,
     },
     type: {
       type: String,
-      enum: ["Free", "Paid", "Freemium"],
+      enum: ["Free", "Paid", "Freemium", "Subscription"],
       default: "Free",
-    },
-    level: {
-      type: String,
-      enum: ["Beginner", "Intermediate", "Advanced"],
-      default: "Beginner",
     },
     website: {
       type: String,

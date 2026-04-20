@@ -35,28 +35,26 @@ const getPlatformById = async (req, res) => {
 // Create platform (Admin only)
 const createPlatform = async (req, res) => {
   try {
-    const { name, description, category, type, level, website } = req.body;
+    const { name, description, category, type, website } = req.body;
 
     // Validation
     const validCategories = [
-      "Programming",
-      "Competitive Exams",
-      "School Learning",
-      "College Resources",
-      "Skill Development",
-      "Language Learning",
+      "Education",
+      "Entertainment",
+      "Finance",
+      "E-commerce",
+      "Social Media",
+      "Productivity",
+      "Health & Fitness",
+      "Travel",
     ];
 
     if (!validCategories.includes(category)) {
       return res.status(400).json({ error: "Invalid category" });
     }
 
-    if (!["Free", "Paid", "Freemium"].includes(type)) {
+    if (!["Free", "Paid", "Freemium", "Subscription"].includes(type)) {
       return res.status(400).json({ error: "Invalid type" });
-    }
-
-    if (!["Beginner", "Intermediate", "Advanced"].includes(level)) {
-      return res.status(400).json({ error: "Invalid level" });
     }
 
     const platform = new Platform({
@@ -64,7 +62,6 @@ const createPlatform = async (req, res) => {
       description,
       category,
       type,
-      level,
       website: website || null,
       averageRating: 0,
       totalReviews: 0,
@@ -80,7 +77,7 @@ const createPlatform = async (req, res) => {
 // Update platform
 const updatePlatform = async (req, res) => {
   try {
-    const { name, description, category, type, level, website } = req.body;
+    const { name, description, category, type, website } = req.body;
 
     const platform = await Platform.findById(req.params.id);
     if (!platform) {
@@ -91,7 +88,6 @@ const updatePlatform = async (req, res) => {
     if (description) platform.description = description;
     if (category) platform.category = category;
     if (type) platform.type = type;
-    if (level) platform.level = level;
     if (website !== undefined) platform.website = website;
 
     await platform.save();

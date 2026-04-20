@@ -20,7 +20,7 @@ const Dashboard = ({ onPlatformDataUpdated }) => {
     <div className="dashboard-container">
       <div className="dashboard-header">
         <h1>Welcome, {user.username}!</h1>
-        <p>Manage your educational platform reviews</p>
+        <p>Manage your digital service reviews</p>
       </div>
 
       {user.isAdmin && (
@@ -31,8 +31,8 @@ const Dashboard = ({ onPlatformDataUpdated }) => {
 
       {!user.isAdmin && (
         <div className="user-section">
-          <h2>My Platform Reviews</h2>
-          <p>Visit the "Explore Learning Platforms" page to add and manage your reviews.</p>
+          <h2>My Service Reviews</h2>
+          <p>Visit the "Explore Digital Services" page to add and manage your reviews.</p>
         </div>
       )}
     </div>

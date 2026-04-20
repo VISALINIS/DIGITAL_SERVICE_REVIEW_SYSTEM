@@ -18,6 +18,7 @@ const register = async (req, res) => {
     const existingUser = await User.findOne({
       $or: [{ email }, { username }],
     });
+
     if (existingUser) {
       return res.status(400).json({
         error: "User already exists",
@@ -54,7 +55,9 @@ const login = async (req, res) => {
       });
     }
 
-    const user = await User.findOne({ email });
+    // 🔥 IMPORTANT: include password
+    const user = await User.findOne({ email }).select("+password");
+
     if (!user) {
       return res.status(401).json({
         error: "Invalid credentials",
@@ -62,7 +65,9 @@ const login = async (req, res) => {
       });
     }
 
+    // 🔥 Correct bcrypt comparison
     const isPasswordValid = await user.comparePassword(password);
+
     if (!isPasswordValid) {
       return res.status(401).json({
         error: "Invalid credentials",
